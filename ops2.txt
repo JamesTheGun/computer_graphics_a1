@@ -1,0 +1,4 @@
+# ops2.txt — pitch forward then uniform scale
+rot:   angle = -0.785, theta = 0.0, phi = 1.5708
+strc:  factor = 2.0,  theta = 1.5708, phi = 1.5708
+trnlt: x = 0.0, y = 0.0, z = 0.0

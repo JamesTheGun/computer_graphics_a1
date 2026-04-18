@@ -1,0 +1,4 @@
+# ops3.txt — roll + squash tall
+rot:   angle = 1.571, theta = 0.0, phi = 0.0
+strc:  factor = 0.5,  theta = 1.5708, phi = 1.5708
+trnlt: x = 1.0, y = 0.0, z = -1.0
