@@ -42,54 +42,74 @@ def _draw_normal_key(ax_ops: Any, n_ops: int, x_frac: float, ops_w: float) -> No
     if y < 0.04:
         return
 
-    SW = 0.22 / ops_w   # swatch width as fraction of panel width (≈0.22 in)
-    SH = 0.026          # swatch height in axes-fraction
+    SW = 0.22 / ops_w  # swatch width as fraction of panel width (≈0.22 in)
+    SH = 0.026  # swatch height in axes-fraction
     TX = x_frac + SW + 0.025  # text starts after swatch + small gap
     STEP = 0.058
 
     def swatch_row(y_top: float, color: tuple, label: str) -> None:
         ax_ops.add_patch(
             Rectangle(
-                (x_frac, y_top - SH), SW, SH,
-                facecolor=color, edgecolor="none",
-                transform=ax_ops.transAxes, clip_on=False,
+                (x_frac, y_top - SH),
+                SW,
+                SH,
+                facecolor=color,
+                edgecolor="none",
+                transform=ax_ops.transAxes,
+                clip_on=False,
             )
         )
         ax_ops.text(
-            TX, y_top - SH / 2, label,
+            TX,
+            y_top - SH / 2,
+            label,
             transform=ax_ops.transAxes,
-            fontsize=8, color="white", fontfamily="monospace",
-            va="center", ha="left",
+            fontsize=8,
+            color="white",
+            fontfamily="monospace",
+            va="center",
+            ha="left",
         )
 
     # Header
     ax_ops.text(
-        x_frac, y, "─── Normal Colour Key ───",
+        x_frac,
+        y,
+        "─── Normal Colour Key ───",
         transform=ax_ops.transAxes,
-        fontsize=8.5, color="#aaccff", fontfamily="monospace",
-        fontweight="bold", va="top", ha="left",
+        fontsize=8.5,
+        color="#aaccff",
+        fontfamily="monospace",
+        fontweight="bold",
+        va="top",
+        ha="left",
     )
     y -= 0.05
 
     # View direction
     vx, vy, vz = _CAM_FROM
     ax_ops.text(
-        x_frac, y, f"v = ({vx:.2f}, {vy:.2f}, {vz:.2f})",
+        x_frac,
+        y,
+        f"v = ({vx:.2f}, {vy:.2f}, {vz:.2f})",
         transform=ax_ops.transAxes,
-        fontsize=7.5, color="#aaaaaa", fontfamily="monospace",
-        va="top", ha="left",
+        fontsize=7.5,
+        color="#aaaaaa",
+        fontfamily="monospace",
+        va="top",
+        ha="left",
     )
     y -= STEP
 
     entries: list[tuple[tuple, str]] = [
-        (tuple(_normal_to_rgb_float(np.array([ 1., 0., 0.]))), "X+   Red  high"),
-        (tuple(_normal_to_rgb_float(np.array([-1., 0., 0.]))), "X−   Red  low "),
-        (tuple(_normal_to_rgb_float(np.array([ 0., 1., 0.]))), "Y+   Green high"),
-        (tuple(_normal_to_rgb_float(np.array([ 0.,-1., 0.]))), "Y−   Green low "),
-        (tuple(_normal_to_rgb_float(np.array([ 0., 0., 1.]))), "Z+   Blue  high"),
-        (tuple(_normal_to_rgb_float(np.array([ 0., 0.,-1.]))), "Z−   Blue  low "),
-        (tuple(_normal_to_rgb_float(_CAM_FROM)),                "Facing camera  "),
-        (tuple(_normal_to_rgb_float(-_CAM_FROM)),               "Away from camera"),
+        (tuple(_normal_to_rgb_float(np.array([1.0, 0.0, 0.0]))), "X+"),
+        (tuple(_normal_to_rgb_float(np.array([-1.0, 0.0, 0.0]))), "X-"),
+        (tuple(_normal_to_rgb_float(np.array([0.0, 1.0, 0.0]))), "Y+"),
+        (tuple(_normal_to_rgb_float(np.array([0.0, -1.0, 0.0]))), "Y-"),
+        (tuple(_normal_to_rgb_float(np.array([0.0, 0.0, 1.0]))), "Z+"),
+        (tuple(_normal_to_rgb_float(np.array([0.0, 0.0, -1.0]))), "Z-"),
+        (tuple(_normal_to_rgb_float(_CAM_FROM)), "Facing camera  "),
+        (tuple(_normal_to_rgb_float(-_CAM_FROM)), "Away from camera"),
     ]
 
     for color, label in entries:
@@ -230,9 +250,15 @@ class Viewer:
             fig = plt.figure(figsize=(IMG_W + ops_w, FIG_H))
             fig.patch.set_facecolor("#0d1b2a")
             gs = GridSpec(
-                1, 2, figure=fig,
+                1,
+                2,
+                figure=fig,
                 width_ratios=[ops_w, IMG_W],
-                wspace=0.0, left=0.0, right=1.0, top=1.0, bottom=0.0,
+                wspace=0.0,
+                left=0.0,
+                right=1.0,
+                top=1.0,
+                bottom=0.0,
             )
             ax_ops = fig.add_subplot(gs[0])
             ax = fig.add_subplot(gs[1])
