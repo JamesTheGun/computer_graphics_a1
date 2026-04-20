@@ -12,37 +12,35 @@ def rotate(
 ) -> NDArray[np.float64]:
     if centroid is None:
         centroid = np.median(vertices, axis=0)
+
     axis_norm = np.linalg.norm(axis)
     if axis_norm == 0.0 or angle == 0.0:
         return vertices.copy()
+
     axis = axis / axis_norm
+
     cos_theta = np.cos(angle)
     sin_theta = np.sin(angle)
-    one_minus_cos = 1 - cos_theta
 
-    rotation_matrix = np.array(
-        [
-            [
-                cos_theta + axis[0] ** 2 * one_minus_cos,
-                axis[0] * axis[1] * one_minus_cos - axis[2] * sin_theta,
-                axis[0] * axis[2] * one_minus_cos + axis[1] * sin_theta,
-            ],
-            [
-                axis[1] * axis[0] * one_minus_cos + axis[2] * sin_theta,
-                cos_theta + axis[1] ** 2 * one_minus_cos,
-                axis[1] * axis[2] * one_minus_cos - axis[0] * sin_theta,
-            ],
-            [
-                axis[2] * axis[0] * one_minus_cos - axis[1] * sin_theta,
-                axis[2] * axis[1] * one_minus_cos + axis[0] * sin_theta,
-                cos_theta + axis[2] ** 2 * one_minus_cos,
-            ],
+    x, y, z = axis
+
+    K = np.array(  # type: ignore
+        [  # type: ignore
+            [0.0, -z, y],
+            [z, 0.0, -x],
+            [-y, x, 0.0],
         ]
     )
 
+    rodrigues = (   # type: ignore
+        lambda c, s, K, u: np.eye(3) * c + (1.0 - c) * np.outer(u, u) + s * K   # type: ignore
+    )
+
+    rod_rotation_matrix = rodrigues(cos_theta, sin_theta, K, axis)   # type: ignore
+
     centered = vertices - centroid
-    rotated = np.dot(centered, rotation_matrix.T)
-    return rotated + centroid
+    rotated = centered @ rod_rotation_matrix.T   # type: ignore
+    return rotated + centroid   # type: ignore
 
 
 def stretch(
@@ -59,10 +57,21 @@ def stretch(
 
     axis = axis / axis_norm
 
-    parallel = np.outer(vertices @ axis, axis)
+    scalars = vertices @ axis
+    parallel = scalars[:, None] * axis
     perpendicular = vertices - parallel
 
     return perpendicular + factor * parallel
+
+
+def uniform_scale(
+    vertices: NDArray[np.float64],
+    factor: float,
+) -> NDArray[np.float64]:
+    vertices = stretch(vertices, factor, np.array([1.0, 0.0, 0.0]))
+    vertices = stretch(vertices, factor, np.array([0.0, 1.0, 0.0]))
+    vertices = stretch(vertices, factor, np.array([0.0, 0.0, 1.0]))
+    return vertices
 
 
 def _faces_to_triangles(faces: pd.DataFrame) -> NDArray[np.intp]:

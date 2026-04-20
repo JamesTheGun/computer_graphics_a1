@@ -10,12 +10,10 @@ from maths import (
 )
 from data_loading import (
     ThreeDObject,
-    Direction,
     Rotation,
     Stretch,
     Translation,
     Op,
-    load_ops,
 )
 
 
@@ -54,7 +52,6 @@ def execute_ops(
     obj: ThreeDObject,
     ops: list[Op],
 ) -> ThreeDObject:
-    """Apply a list of ops to an object and return a new ThreeDObject with normals."""
     transformed = obj.vertices.copy()
     for op in ops:
         if isinstance(op, Rotation):

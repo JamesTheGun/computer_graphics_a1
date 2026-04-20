@@ -13,12 +13,11 @@ from vis import Viewer
 DEFAULT_OPS_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ops.txt")
 
 
-class FuckWithObject:
+class MessWithObject:
     def __init__(
         self,
         obj_path: str,
         output_dir: str = "outputs",
-        show_edges: bool = False,
         ops_path: str = DEFAULT_OPS_PATH,
         texture_path: Optional[str] = None,
         texture_mode: str = "triplanar",
@@ -29,7 +28,6 @@ class FuckWithObject:
         ops_stem = os.path.splitext(os.path.basename(ops_path))[0]
         self.output_dir = os.path.join(output_dir, os.path.basename(obj_path), ops_stem)
         self.ops_path = ops_path
-        self.show_edges = show_edges
         self.texture_path = texture_path
         self.texture_mode = texture_mode
         self.texture_tile_u = texture_tile_u
@@ -53,9 +51,9 @@ class FuckWithObject:
         self._viewer.view_obj(
             result_obj,
             save_path=os.path.join(self.output_dir, "result.png"),
-            show_edges=self.show_edges,
+            ops=ops,
         )
-
+        COMBINE_OPTIONS = ["multiply"]
         if self.texture_path is not None:
             for combine_mode in COMBINE_OPTIONS:
                 display_obj = apply_texture_to_obj(
@@ -70,18 +68,18 @@ class FuckWithObject:
                 self._viewer.view_obj(
                     display_obj,
                     save_path=save_path,
-                    show_edges=self.show_edges,
+                    ops=ops,
                 )
 
 
 if __name__ == "__main__":
-    for texture_mode in ["triplanar", "planar", "reflective"]:
+    for texture_mode in ["triplanar"]:
         for obj_name in ["cow", "crock", "mystery", "monkey"]:
             for ops in ["ops.txt", "ops2.txt", "ops3.txt", "ops4.txt"]:
                 striped_ops = os.path.splitext(ops)[0]
-                FuckWithObject(
+                MessWithObject(
                     os.path.join(obj_name),
-                    texture_path=f"C:\\Users\\jamed\\Desktop\\computer_graphics_a1\\textures\\checkerboard.png",
+                    texture_path=f"C:\\Users\\jamed\\Desktop\\computer_graphics_a1\\textures\\voronoi.png",
                     ops_path=ops,
                     output_dir=os.path.join(f"outputs", texture_mode),
                     texture_mode=texture_mode,

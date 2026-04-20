@@ -22,7 +22,6 @@ def checkerboard(
     colour_a: tuple[int, int, int] = (255, 255, 255),
     colour_b: tuple[int, int, int] = (30, 30, 30),
 ) -> str:
-    """Alternating solid-colour tiles."""
     img = np.zeros((height, width, 3), dtype=np.uint8)
     for y in range(height):
         for x in range(width):
@@ -42,7 +41,6 @@ def noise(
     lacunarity: float = 2.0,
     seed: int = 0,
 ) -> str:
-    """Fractal Brownian Motion (fBm) grayscale noise texture."""
     rng = np.random.default_rng(seed)
     result = np.zeros((height, width), dtype=np.float64)
     amplitude = 1.0
@@ -71,7 +69,6 @@ def gradient(
     colour_end: tuple[int, int, int] = (0, 128, 255),
     direction: str = "horizontal",
 ) -> str:
-    """Linear gradient between two colours. direction: 'horizontal' | 'vertical' | 'diagonal'."""
     img = np.zeros((height, width, 3), dtype=np.uint8)
     if direction == "horizontal":
         t = np.linspace(0, 1, width)
@@ -103,7 +100,6 @@ def voronoi(
     seed: int = 0,
     coloured: bool = True,
 ) -> str:
-    """Voronoi / cellular texture."""
     rng = np.random.default_rng(seed)
     points = rng.uniform(0, 1, size=(num_cells, 2))
     cell_colours = rng.integers(40, 255, size=(num_cells, 3), dtype=np.uint8)
@@ -135,7 +131,6 @@ def stripes(
     colour_a: tuple[int, int, int] = (220, 50, 50),
     colour_b: tuple[int, int, int] = (240, 240, 240),
 ) -> str:
-    """Angled stripes."""
     img = np.zeros((height, width, 3), dtype=np.uint8)
     angle = np.radians(angle_deg)
     xs = np.arange(width)
@@ -149,8 +144,6 @@ def stripes(
 
 
 class TextureGenerator:
-    """Convenience wrapper — call .run() to generate all textures."""
-
     def __init__(
         self,
         output_dir: Optional[str] = None,

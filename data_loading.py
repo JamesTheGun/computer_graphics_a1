@@ -70,11 +70,6 @@ def load_object(object_name: str) -> ThreeDObject:
     return _stream_to_3d_object(obj_str)
 
 
-# ---------------------------------------------------------------------------
-# Transform operation types
-# ---------------------------------------------------------------------------
-
-
 @_dc
 class Direction:
     theta: float  # azimuth (radians)
@@ -113,18 +108,7 @@ class Translation:
 
 Op = Union[Rotation, Stretch, Translation]
 
-
 def load_ops(path: str) -> "list[Op]":
-    """Parse an ops text file into a list of Rotation / Stretch / Translation.
-
-    File format (one op per line, blank lines and # comments ignored):
-
-        rot:   angle = 0.785, theta = 1.5708, phi = 1.5708
-        strc:  factor = 2.0,  theta = 1.5708, phi = 1.5708
-        trnlt: x = 1.0, y = 0.0, z = -3.0
-
-    All angles are in radians.
-    """
     ops: list[Op] = []
     with open(path) as f:
         for raw in f:
