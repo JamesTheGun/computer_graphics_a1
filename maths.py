@@ -32,15 +32,15 @@ def rotate(
         ]
     )
 
-    rodrigues = (   # type: ignore
-        lambda c, s, K, u: np.eye(3) * c + (1.0 - c) * np.outer(u, u) + s * K   # type: ignore
+    rodrigues = (  # type: ignore
+        lambda c, s, K, u: np.eye(3) * c + (1.0 - c) * np.outer(u, u) + s * K  # type: ignore
     )
 
-    rod_rotation_matrix = rodrigues(cos_theta, sin_theta, K, axis)   # type: ignore
+    rod_rotation_matrix = rodrigues(cos_theta, sin_theta, K, axis)  # type: ignore
 
     centered = vertices - centroid
-    rotated = centered @ rod_rotation_matrix.T   # type: ignore
-    return rotated + centroid   # type: ignore
+    rotated = centered @ rod_rotation_matrix.T  # type: ignore
+    return rotated + centroid  # type: ignore
 
 
 def stretch(
@@ -135,7 +135,7 @@ def generate_normals(
     return normals
 
 
-def transform(
+def translate(
     vertices: NDArray[np.float64], distances: NDArray[np.float64]
 ) -> NDArray[np.float64]:
     assert vertices.ndim == 2 and vertices.shape[1] == 3

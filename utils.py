@@ -5,7 +5,7 @@ from numpy.typing import NDArray
 from maths import (
     rotate as rotate_fn,
     stretch as stretch_fn,
-    transform as transform_fn,
+    translate as transform_fn,
     generate_normals as generate_normals_fn,
 )
 from data_loading import (
