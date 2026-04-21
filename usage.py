@@ -6,7 +6,7 @@ from typing import Optional
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from texture_stuff.mapping import apply_texture_to_obj, COMBINE_OPTIONS
-from data_loading import ThreeDObject, Op, load_ops, load_object
+from data_loading import ThreeDObject, Op, load_ops, load_object, load_ops_description
 from utils import execute_ops
 from vis import Viewer
 
@@ -45,6 +45,7 @@ class MessWithObject:
         self._clear_output_dir()
         obj = self._load()
         ops: list[Op] = load_ops(self.ops_path)
+        description = load_ops_description(self.ops_path)
         result_obj = execute_ops(obj, ops)
 
         # Save the plain (no texture) render
@@ -52,6 +53,7 @@ class MessWithObject:
             result_obj,
             save_path=os.path.join(self.output_dir, "result.png"),
             ops=ops,
+            description=description,
         )
         COMBINE_OPTIONS = ["multiply"]
         if self.texture_path is not None:
@@ -69,13 +71,23 @@ class MessWithObject:
                     display_obj,
                     save_path=save_path,
                     ops=ops,
+                    description=description,
                 )
 
 
 if __name__ == "__main__":
     for texture_mode in ["triplanar"]:
         for obj_name in ["cow", "crock", "mystery", "monkey"]:
-            for ops in ["ops.txt", "ops2.txt", "ops3.txt", "ops4.txt"]:
+            for ops in [
+                "ops.txt",
+                "ops2.txt",
+                "ops3.txt",
+                "ops4.txt",
+                "ops5.txt",
+                "ops6.txt",
+                "ops7.txt",
+                "ops8.txt",
+            ]:
                 striped_ops = os.path.splitext(ops)[0]
                 MessWithObject(
                     os.path.join(obj_name),

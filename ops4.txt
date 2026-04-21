@@ -1,4 +1,4 @@
-# ops4.txt — diagonal rotation + stretch along diagonal axis
-rot:   angle = 0.524, theta = 0.7854, phi = 0.9553
-strc:  factor = 3.0,  theta = 0.7854, phi = 0.9553
-trnlt: x = 0.0, y = 0.5, z = 0.0
+# Uniform scaling with 3x origional scale.
+strc: factor = 3.0, theta = 0.0,    phi = 1.5708
+strc: factor = 3.0, theta = 1.5708, phi = 1.5708
+strc: factor = 3.0, theta = 0.0,    phi = 0.0

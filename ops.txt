@@ -1,5 +1,2 @@
-# rot:   angle = <rad>, theta = <azimuth_rad>, phi = <polar_rad>
-# strc:  factor = <scale>, theta = <azimuth_rad>, phi = <polar_rad>
-# trnlt: x = <dx>, y = <dy>, z = <dz>
-
-#no op
+# No ops (transalte by zero)
+trnlt: x = 0.0, y = 0.0, z = 0.0

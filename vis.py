@@ -142,6 +142,7 @@ class Viewer:
         show: bool = False,
         label: Optional[str] = None,
         ops: Optional[list[Op]] = None,
+        description: Optional[str] = None,
     ) -> None:
         print(
             f"Viewing object with {len(obj.vertices)} vertices and "
@@ -229,10 +230,25 @@ class Viewer:
                 va="top",
                 ha="left",
             )
+            desc_slots = 0
+            if description:
+                ax_ops.text(
+                    PANEL_PAD / ops_w,
+                    0.92,
+                    f'"{description}"',
+                    transform=ax_ops.transAxes,
+                    fontsize=8,
+                    color="#ffdd88",
+                    fontfamily="monospace",
+                    fontstyle="italic",
+                    va="top",
+                    ha="left",
+                )
+                desc_slots = 1
             for i, line in enumerate(op_lines):
                 ax_ops.text(
                     PANEL_PAD / ops_w,
-                    0.93 - i * 0.07,
+                    0.93 - desc_slots * 0.07 - i * 0.07,
                     f"{i + 1}. {line}",
                     transform=ax_ops.transAxes,
                     fontsize=8.5,
@@ -241,7 +257,9 @@ class Viewer:
                     va="top",
                     ha="left",
                 )
-            _draw_normal_key(ax_ops, len(op_lines), PANEL_PAD / ops_w, ops_w)
+            _draw_normal_key(
+                ax_ops, len(op_lines) + desc_slots, PANEL_PAD / ops_w, ops_w
+            )
         else:
             from matplotlib.gridspec import GridSpec
 

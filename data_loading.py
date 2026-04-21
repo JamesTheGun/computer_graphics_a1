@@ -108,6 +108,16 @@ class Translation:
 
 Op = Union[Rotation, Stretch, Translation]
 
+
+def load_ops_description(path: str) -> str:
+    with open(path) as f:
+        for raw in f:
+            line = raw.strip()
+            if line.startswith("#"):
+                return line.lstrip("#").strip()
+    return ""
+
+
 def load_ops(path: str) -> "list[Op]":
     ops: list[Op] = []
     with open(path) as f:

@@ -1,4 +1,3 @@
-# ops3.txt — roll + squash tall
-rot:   angle = 1.571, theta = 0.0, phi = 0.0
-strc:  factor = 0.5,  theta = 1.5708, phi = 1.5708
-trnlt: x = 1.0, y = 0.0, z = -1.0
+# Combo: 90 degree rotation around Z and then translation away
+rot:   angle = 1.5708, theta = 0.0, phi = 0.0
+trnlt: x = 400.0, y = 300.0, z = 0.0

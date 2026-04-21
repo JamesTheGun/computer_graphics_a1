@@ -1,0 +1,3 @@
+# Shape change: stretch to 0.15x on Y, stretch to 5x on X
+strc: factor = 5.0,  theta = 0.0,    phi = 1.5708
+strc: factor = 0.15, theta = 1.5708, phi = 1.5708

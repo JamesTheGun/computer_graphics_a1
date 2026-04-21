@@ -1,0 +1,5 @@
+# Extra: spin around Z then 2.5 uniform scale
+rot:   angle = 4.7124, theta = 0.0,    phi = 0.0
+strc:  factor = 2.5,   theta = 0.0,    phi = 1.5708
+strc:  factor = 2.5,   theta = 1.5708, phi = 1.5708
+strc:  factor = 2.5,   theta = 0.0,    phi = 0.0

@@ -1,0 +1,5 @@
+# Extra: 135 degree spin around Z, squeeze on Z, stretch on X, then translate
+rot:   angle = 2.3562, theta = 0.0,    phi = 0.0
+strc:  factor = 4.0,   theta = 0.0,    phi = 1.5708
+strc:  factor = 0.2,   theta = 0.0,    phi = 0.0
+trnlt: x = 3.0, y = -3.0, z = 0.0
